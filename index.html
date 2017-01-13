@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>HM-Popup v 2.5</title>
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <header>
+        HM POPUPS
+    </header>
+    
+    <div class="manybuttons">
+        <button id="openspp">Open Simple Popup</button>
+        <button id="openop">Open Redirect Popup</button>
+        <button id="openoo">Open Option Popup</button>
+        <button id="openwpp">Open Wait Popup</button>
+        <button id="openwspp">Simple Popup when HMPopup is open</button>
+        <button id="openwopp">Wait Popup when HMPopup is open</button>
+        <button id="openipp">Open iFrame Popup</button>
+        <button id="openytpp">Open Youtube Popup</button>
+    </div>
+
+    <footer>
+        HM Popups 2017
+    </footer>
+    <script src="assets/js/hm-popup.js"></script>
+    <script type="text/javascript">
+        
+        $(function(){
+            initializePP("assets/img/","hm-preloader_06","bold, sans-serif");
+        });
+        
+        $('#openspp').on('click',function(){
+            /**
+            * Open Simple Popup
+            * @param {String} message
+            */
+            openSPP("Simple Popup");
+        });
+
+        $('#openop').on('click',function(){
+            /**
+            * Open Simple Popup
+            * @param {String} message
+            * @param {String} url
+            */
+            openOPP("Redirect Popup","asd");
+        });
+        
+        $('#openoo').on('click',function(){
+            /**
+            * Option Popup
+            * @param {String} message
+            * @callback if you select the option yes
+            * @callback if you select the option no
+            */
+            openOOP("Option Popup",
+                function(){
+                    closePP();
+                    alert("Yes");
+                },
+                function(){
+                    closePP();
+                    alert("No");
+                }
+            );
+        });
+        
+        $('#openwpp').on('click',function(){
+            var time = 5;
+            /**
+            * Wait Popup
+            * @param {String} message
+            */
+            openWPP('Please, Wait <label id="times">5</label> seconds');
+            var timer = setInterval(function(){
+                time--;
+                if(time == 0){
+                    clearInterval(timer);
+                    closePP();
+                }else{
+                    $('#times').html(time);
+                }
+            },1000);
+        });
+        
+        $("#openwspp").on('click',function(){
+            openOOP("Open Simple Popup?",
+                function(){
+                    //Do something Yes
+                    /**
+                    * Open Simple Popup
+                    * @param {String} message
+                    */
+                    openWSPP("Simple Popup");
+                },
+                function(){
+                    //Do something No
+                    closePP();
+                }
+            ); 
+        });
+        
+        $("#openwopp").on('click',function(){
+            openOOP("Open Wait Popup?",
+                function(){
+                    //Do something Yes
+                    var time = 5;
+                    /**
+                    * Wait Popup
+                    * @param {String} message
+                    */
+                    openWOPP('Please, Wait <label id="times">5</label> seconds');
+                    var timer = setInterval(function(){
+                        time--;
+                        if(time == 0){
+                            clearInterval(timer);
+                            closePP();
+                        }else{
+                            $('#times').html(time);
+                        }
+                    },1000);
+                },
+                function(){
+                    //Do something No
+                    closePP();
+                }
+            ); 
+        });
+        
+        $('#openipp').on('click',function(){
+            openIPP("http://demo.easyquotes.us/");
+        });
+        
+        $('#openytpp').on('click',function(){
+            openYTPP("lztEAAsl9HA");
+        });
+
+    </script>
+</body>
+</html>
